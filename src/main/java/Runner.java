@@ -21,20 +21,20 @@ public class Runner {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n**************************************" +
-                "\nWillkommen bei Fabienne's Tic Tac Toe" +
+                "\033[35;1m\nWillkommen bei Fabienne's Tic Tac Toe\033[0m" +
                 "\n**************************************");
-        System.out.println("\nRegeln: \nZiel des Spiels ist es drei seiner Zeichen in eine Reihe zu bekommen,\n" +
+        System.out.println("\n\033[36;1mRegeln: \nZiel des Spiels ist es drei seiner Zeichen in eine Reihe zu bekommen,\n" +
                 "ob Diagonal, Senkrecht oder Waagrecht.\n" +
                 "Die Felder werden mit der Eingabe der zugeordneten Zahl ausgewählt." +
-                "\nJedes Feld kann nur einmal gewählt werden." +
+                "\nJedes Feld kann nur einmal gewählt werden.\033[0m" +
                 "\n-------------------------------------------------------------------" +
-                "\nMit der Zahl '99' kann das Spiel jederzeit beendet werden." +
-                "\n\nViel Spass;D");
+                "\nMit der Zahl '\033[35m99\033[0m' kann das Spiel jederzeit beendet werden." +
+                "\n\n\033[32mViel Spass;D\033[0m");
 
         /*
           Board output.
          */
-        System.out.println("Spielfeld:");
+        System.out.println("\nSpielfeld:");
         printBoard(board);
 
         while (keepPlayingTheGame) {
@@ -56,7 +56,7 @@ public class Runner {
             try {
                 userInput = Integer.valueOf(userInputString);
             } catch (NumberFormatException e) {
-                System.out.println("FEHLER: Eingabe muss eine Zahl von 1-9 sein und nicht: " + userInputString);
+                System.out.println("\033[31;1mFEHLER\033[0m: Eingabe muss eine Zahl von 1-9 sein und nicht: " + userInputString);
                 continue;
             }
 
@@ -72,7 +72,7 @@ public class Runner {
               Check if input in the range of 1-9, otherwise 'continue'.
              */
             if (!FieldsOfTheBoard.contains(userInputString)) {
-                System.out.println("Oppala, Eingabe ausserhalb des Ranges [1-9]. Versuch es noch einmal.");
+                System.out.println("Oppala, Eingabe ausserhalb des Ranges [1-9]. \nVersuch es noch einmal.");
                 continue;
             }
 
@@ -83,7 +83,7 @@ public class Runner {
             if (board[userInput - 1].equals(userInputString)) {
                 board[userInput - 1] = actPlayer.value;
             } else {
-                System.out.println("Ups,  Feld [" + userInputString + "] wurde bereits gesetzt. Nimm ein anderes Feld.");
+                System.out.println("Ups, Feld [" + userInputString + "] wurde bereits gesetzt. Nimm ein anderes Feld.");
                 continue;
             }
 
@@ -96,7 +96,7 @@ public class Runner {
               Winner output.
              */
             if (checkWinner(board, actPlayer)) {
-                System.out.println("\nBravo, Spieler " + actPlayer.name() + " (" + actPlayer.value + ") hat gewonnen.;D");
+                System.out.println("\033[32;m\nBravo\033[0m, Spieler " + actPlayer.name() + " (" + actPlayer.value + ") hat gewonnen.;D");
                 break;
             } else if (turn == 9) {
                 System.out.println("\nUnentschieden...");
@@ -189,18 +189,13 @@ public class Runner {
       Each player has a specific toggle e.g. player A has a X toggle.
      */
     private enum Player {
-        A("X"), B("O");
+        A("\033[31;1mX\033[0m"), B("\033[34;1mO\033[0m");
 
         private final String value;
 
         Player(String value) {
             this.value = value;
         }
-    /*
-        public String getValue() {
-            return this.value;
-        }
-        */
     }
 
     /*
@@ -225,11 +220,5 @@ public class Runner {
             }
             return false;
         }
-
-// --Commented out by Inspection START (16.05.2018 11:07):
-//        public int fieldValue() {
-//            return fieldValue;
-//        }
-// --Commented out by Inspection STOP (16.05.2018 11:07)
     }
 }
