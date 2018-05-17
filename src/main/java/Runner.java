@@ -9,6 +9,14 @@ import java.util.Scanner;
  */
 public class Runner {
 
+    /*
+     Declare color
+     */
+    private static final String COLOR_RED = "\u001B[31m";
+    private static final String COLOR_GREEN = "\u001B[32m";
+    private static final String COLOR_BLUE = "\u001B[34m";
+    private static final String COLOR_MAGENTA = "\u001B[35;1m";
+    private static final String COLOR_CLEAN = "\u001B[0m";
     public static void main(String[] args) {
 
         /*
@@ -20,16 +28,17 @@ public class Runner {
         Player actPlayer = Player.A;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\n**************************************" +
-                "\033[35;1m\nWillkommen bei Fabienne's Tic Tac Toe\033[0m" +
-                "\n**************************************");
-        System.out.println("\n\033[36;1mRegeln: \nZiel des Spiels ist es drei seiner Zeichen in eine Reihe zu bekommen,\n" +
+        System.out.println("\n**********************************************************************" +
+               COLOR_MAGENTA + "\nWillkommen bei Fabienne's Tic Tac Toe" +
+                COLOR_CLEAN);
+        System.out.println("\nRegeln: \nZiel des Spiels ist es drei seiner Zeichen in eine Reihe zu bekommen,\n" +
                 "ob Diagonal, Senkrecht oder Waagrecht.\n" +
                 "Die Felder werden mit der Eingabe der zugeordneten Zahl ausgewählt." +
-                "\nJedes Feld kann nur einmal gewählt werden.\033[0m" +
+                "\nJedes Feld kann nur einmal gewählt werden." +
                 "\n-------------------------------------------------------------------" +
-                "\nMit der Zahl '\033[35m99\033[0m' kann das Spiel jederzeit beendet werden." +
-                "\n\n\033[32mViel Spass;D\033[0m");
+                "\nMit der Zahl '99' kann das Spiel jederzeit beendet werden." +
+                "\n\nViel Spass;D" +
+                "\n**********************************************************************");
 
         /*
           Board output.
@@ -56,7 +65,7 @@ public class Runner {
             try {
                 userInput = Integer.valueOf(userInputString);
             } catch (NumberFormatException e) {
-                System.out.println("\033[31;1mFEHLER\033[0m: Eingabe muss eine Zahl von 1-9 sein und nicht: " + userInputString);
+                System.out.println(COLOR_RED + "FEHLER" +COLOR_CLEAN + ": Eingabe muss eine Zahl von 1-9 sein und nicht: " + userInputString);
                 continue;
             }
 
@@ -96,7 +105,7 @@ public class Runner {
               Winner output.
              */
             if (checkWinner(board, actPlayer)) {
-                System.out.println("\033[32;m\nBravo\033[0m, Spieler " + actPlayer.name() + " (" + actPlayer.value + ") hat gewonnen.;D");
+                System.out.println(COLOR_GREEN + "\nBravo " + COLOR_CLEAN + "Spieler " + actPlayer.name() + " (" + actPlayer.value + ") hat gewonnen.;D");
                 break;
             } else if (turn == 9) {
                 System.out.println("\nUnentschieden...");
@@ -189,7 +198,7 @@ public class Runner {
       Each player has a specific toggle e.g. player A has a X toggle.
      */
     private enum Player {
-        A("\033[31;1mX\033[0m"), B("\033[34;1mO\033[0m");
+        A(COLOR_RED + "X" + COLOR_CLEAN), B(COLOR_BLUE + "O" + COLOR_CLEAN);
 
         private final String value;
 
