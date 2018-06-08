@@ -1,14 +1,22 @@
+import ch.qos.logback.core.util.StatusPrinter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+
+import java.util.Random;
 import java.util.Scanner;
 
-public class Play {
+public class Play extends Method{
 
     /*
     Declare color
     */
-    private static final String COLOR_MAGENTA = "\u001B[35;1m";
-    private static final String COLOR_CLEAN = "\u001B[0m";
+
+    private static final Logger logger = LoggerFactory.getLogger(Play.class);
 
     public static void main(String[] args) {
+        MDC.put("reqID", generateMdcReqID());
+
 
         System.out.println("\n**********************************************************************" +
                 COLOR_MAGENTA + "\nWillkommen bei Fabienne's Tic Tac Toe" +
@@ -20,6 +28,7 @@ public class Play {
                 "\n-------------------------------------------------------------------" +
                 "\nMit der Zahl '99' kann das Spiel jederzeit beendet werden." +
                 "\n**********************************************************************");
+        logger.debug("Play has been started....");
 
         Scanner gegner = new Scanner(System.in);
         Scanner next = new Scanner(System.in);
@@ -27,7 +36,7 @@ public class Play {
 
         while (round == true) {
 
-            System.out.println("Gegner-Wahl:\n 1. 2 Spieler\n 2. Gegen den Computer");
+            System.out.println("Gegner-Wahl:\n 1. Gegen einen Fruend spielen\n 2. Gegen den Computer spielen");
 
             /*
                Selection opponent
@@ -59,6 +68,19 @@ public class Play {
             String answer = next.next();
             round = answer.equalsIgnoreCase("j");
         }
+        logger.info("Play is over....");
         System.out.println("Sie haben das Spiel verlassen");
+        MDC.clear();
     }
+
+    private static String generateMdcReqID() {
+        Random random = new Random();
+        int aStart = 1;
+        int aEnd = Integer.MAX_VALUE;
+        long range = (long) aEnd - (long) aStart + 1;
+        long fraction = (long) (range * random.nextDouble());
+        int randomNumber = (int) (fraction + aStart);
+        return String.valueOf(randomNumber);
+    }
+
 }
