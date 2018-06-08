@@ -1,4 +1,11 @@
-public class Method {
+/* ***************************
+   Programm:    Tic Tac Toe
+   Author:      Fabienne Kägi
+   Schule:      Benedict Zürich IT1B
+   Datum:       Mai 2018
+   ***************************
+   *
+ */public class Method {
     /*
     Declare color
     */

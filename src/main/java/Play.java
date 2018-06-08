@@ -5,12 +5,15 @@ import org.slf4j.MDC;
 
 import java.util.Random;
 import java.util.Scanner;
+/* ***************************
+   Programm:    Tic Tac Toe
+   Author:      Fabienne Kägi
+   Schule:      Benedict Zürich IT1B
+   Datum:       Mai 2018
+   ***************************
+ */
 
 public class Play extends Method{
-
-    /*
-    Declare color
-    */
 
     private static final Logger logger = LoggerFactory.getLogger(Play.class);
 

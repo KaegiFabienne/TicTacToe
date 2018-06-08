@@ -1,7 +1,13 @@
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.Scanner;
+/* ***************************
+   Programm:    Tic Tac Toe
+   Author:      Fabienne Kägi
+   Schule:      Benedict Zürich IT1B
+   Datum:       Mai 2018
+   ***************************
+ */
 
 public class Computer extends FriendPlayer {
 
@@ -107,6 +113,13 @@ public class Computer extends FriendPlayer {
         }
     }
 
+    /**
+     *  Reads user entered input value.
+     *       @return string of validated user input
+     * @param actPlayer actual player
+     * @param scanner user input
+     * @return Sting of validated user input or pc random choice
+     */
     private static String readUserInput(Player actPlayer, Scanner scanner) {
         if (actPlayer == Player.A) {
             System.out.println("Spieler " + actPlayer.name() + " (" + actPlayer.value + "): Wähle ein Feld: ");

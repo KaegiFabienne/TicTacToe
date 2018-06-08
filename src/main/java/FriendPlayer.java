@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
    Datum:       Mai 2018
    ***************************
  */
+
 public class FriendPlayer extends Method {
 
     public static final Logger logger = LoggerFactory.getLogger(Play.class);
