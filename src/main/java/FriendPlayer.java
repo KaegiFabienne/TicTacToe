@@ -1,4 +1,4 @@
-import java.util.Scanner;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /* ***************************
@@ -24,7 +24,7 @@ public class FriendPlayer extends Method {
         boolean keepPlayingTheGame = true;
         int turn = 1;
         Player actPlayer = Player.A;
-        Scanner scanner = new Scanner(System.in);
+
 
         /*
           Board output.
@@ -105,15 +105,5 @@ public class FriendPlayer extends Method {
             }
             turn++;
         }
-    }
-
-    /*
-      Reads user entered input value.
-      @param actPlayer actual player
-      @return string of validated user input
-     */
-    private static String readUserInput(Player actPlayer, Scanner scanner) {
-        System.out.println("Spieler " + actPlayer.name() + " (" + actPlayer.value + "): Wähle ein Feld: ");
-        return scanner.nextLine();
     }
 }

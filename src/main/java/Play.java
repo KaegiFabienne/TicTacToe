@@ -85,5 +85,4 @@ public class Play extends Method{
         int randomNumber = (int) (fraction + aStart);
         return String.valueOf(randomNumber);
     }
-
 }

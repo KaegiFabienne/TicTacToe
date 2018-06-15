@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /* ***************************
    Programm:    Tic Tac Toe
    Author:      Fabienne Kägi
@@ -5,7 +7,7 @@
    Datum:       Mai 2018
    ***************************
    *
- */public class Method {
+ */public class Method{
     /*
     Declare color
     */
@@ -14,6 +16,8 @@
     public static final String COLOR_BLUE = "\u001B[34m";
     public static final String COLOR_CLEAN = "\u001B[0m";
     public static final String COLOR_MAGENTA = "\u001B[35;1m";
+
+    static Scanner scanner = new Scanner(System.in);
 
 
     /*
@@ -58,6 +62,46 @@
     }
 
     /*
+    Reads user entered input value.
+    @param actPlayer actual player
+    @return string of validated user input
+   */
+    public static String readUserInput(Player actPlayer, Scanner scanner) {
+        System.out.println("Spieler " + actPlayer.name() + " (" + actPlayer.value + "): Wähle ein Feld: ");
+        return scanner.nextLine();
+    }
+
+    /*
+     * search the pc choise
+     * @param actPlayer actuel player
+     * @return string of pc choise
+     */
+    public static String readPcInput(Player actPlayer, String[] board) {
+        System.out.println("Spieler " + actPlayer.name() + " (" + actPlayer.value + "): Wähle ein Feld: ");
+        int pcChoise = 0;
+        if (board[0].equals(Player.A.value) && board[1].equals(Player.A.value)) {
+            pcChoise = 3;
+        }
+        if (board[0] == Player.A.value && board[4] == Player.A.value) {
+            pcChoise = 9;
+            if (board[8] == Player.pc.value) {
+                pcChoise = (int) (Math.random() * 9) + 1;
+            }
+        }
+        if (board[3] == Player.A.value && board[4] == Player.A.value) {
+            pcChoise = 6;
+            if (board[5] == Player.pc.value) {
+                pcChoise = (int) (Math.random() * 9) + 1;
+            }
+        } else {
+            pcChoise = (int) (Math.random() * 9) + 1;
+        }
+        String s = String.valueOf(pcChoise);
+        return s;
+    }
+
+
+    /*
       Check if the given player has won or not.
       @param board  Play board
       @param player enum based player
@@ -79,7 +123,6 @@
         return retVal;
     }
 
-
     /*
       Contains all defined players.
       Each player has a specific toggle e.g. player A has a X toggle.
@@ -87,7 +130,7 @@
     public enum Player {
         A(COLOR_RED + "X" + COLOR_CLEAN), B(COLOR_BLUE + "O" + COLOR_CLEAN), pc(COLOR_BLUE + "O" + COLOR_CLEAN);
 
-        public final String value;
+        public String value;
 
         Player(String value) {
             this.value = value;

@@ -1,5 +1,3 @@
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 /* ***************************
    Programm:    Tic Tac Toe
@@ -10,7 +8,6 @@ import java.util.Scanner;
  */
 
 public class Computer extends FriendPlayer {
-
 
 
     public static void pcPlayer() {
@@ -24,7 +21,7 @@ public class Computer extends FriendPlayer {
         boolean keepPlayingTheGame = true;
         int turn = 1;
         Player actPlayer = Player.A;
-        Scanner scanner = new Scanner(System.in);
+
 
 
 
@@ -48,49 +45,61 @@ public class Computer extends FriendPlayer {
                 actPlayer = Player.A;
             }
 
+            if (actPlayer == Player.A) {
             /*
               Read the user input.
              */
-            String userInputString = readUserInput(actPlayer, scanner);
-            int userInput = 0;
-            try {
-                userInput = Integer.valueOf(userInputString);
-            } catch (NumberFormatException e) {
-                logger.error("Player " + actPlayer + " letter entered...");
+                String userInputString = readUserInput(actPlayer, scanner);
+                int userInput = 0;
+                try {
+                    userInput = Integer.valueOf(userInputString);
+                } catch (NumberFormatException e) {
+                    logger.error("Player " + actPlayer + " letter entered...");
 
-                System.out.println(COLOR_RED + "FEHLER" + COLOR_CLEAN + ": Eingabe muss eine Zahl von 1-9 sein und nicht: " + userInputString);
-                continue;
-            }
-            logger.debug("Player " + actPlayer + " input...");
+                    System.out.println(COLOR_RED + "FEHLER" + COLOR_CLEAN + ": Eingabe muss eine Zahl von 1-9 sein und nicht: " + userInputString);
+                    continue;
+                }
+                // logger.debug("Player " + actPlayer + " input...");
 
 
             /*
               Play or end the game.
              */
-            keepPlayingTheGame = isExitOfTheGame(userInput);
-            if (!keepPlayingTheGame) {
-                break;
-            }
+                keepPlayingTheGame = isExitOfTheGame(userInput);
+                if (!keepPlayingTheGame) {
+                    break;
+                }
 
             /*
               Check if input in the range of 1-9, otherwise 'continue'.
              */
-            if (!FieldsOfTheBoard.contains(userInputString)) {
-                System.out.println("Oppala, Eingabe ausserhalb des Ranges [1-9]. \nVersuch es noch einmal.");
-                continue;
-            }
+                if (!FieldsOfTheBoard.contains(userInputString)) {
+                    System.out.println("Oppala, Eingabe ausserhalb des Ranges [1-9]. \nVersuch es noch einmal.");
+                    continue;
+                }
 
             /*
                Check if field has already been set. if yes then a 'continue',
                otherwise the respective train will be issued.
              */
-            if (board[userInput - 1].equals(userInputString)) {
-                board[userInput - 1] = actPlayer.value;
+                if (board[userInput - 1].equals(userInputString)) {
+                    board[userInput - 1] = actPlayer.value;
+                } else {
+                    System.out.println("Ups, Feld [" + userInputString + "] wurde bereits gesetzt. Nimm ein anderes Feld.");
+                    continue;
+                }
             } else {
-                System.out.println("Ups, Feld [" + userInputString + "] wurde bereits gesetzt. Nimm ein anderes Feld.");
-                continue;
-            }
+                String pcInputString =readPcInput(actPlayer, board);
+                int pcInput = 0;
+                pcInput = Integer.valueOf(pcInputString);
 
+                if (board[pcInput - 1].equals(pcInputString)) {
+                    board[pcInput - 1] = actPlayer.value;
+                } else {
+                    System.out.println("Ups, Feld [" + pcInputString + "] wurde bereits gesetzt. Nimm ein anderes Feld.");
+                    continue;
+                }
+            }
             /*
               Actual board output.
              */
@@ -108,28 +117,7 @@ public class Computer extends FriendPlayer {
                 System.out.println("\nUnentschieden...");
                 break;
             }
-
             turn++;
         }
     }
-
-    /**
-     *  Reads user entered input value.
-     *       @return string of validated user input
-     * @param actPlayer actual player
-     * @param scanner user input
-     * @return Sting of validated user input or pc random choice
-     */
-    private static String readUserInput(Player actPlayer, Scanner scanner) {
-        if (actPlayer == Player.A) {
-            System.out.println("Spieler " + actPlayer.name() + " (" + actPlayer.value + "): Wähle ein Feld: ");
-            return scanner.nextLine();
-        } else {
-            System.out.println("Spieler " + actPlayer.name() + " (" + actPlayer.value + "): Wähle ein Feld: ");
-            int pcInput = (int) (Math.random() * 9) + 1;
-            String s = String.valueOf(pcInput);
-            return String.valueOf(pcInput);
-        }
-    }
-
 }
